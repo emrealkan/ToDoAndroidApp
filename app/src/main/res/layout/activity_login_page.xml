@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:fb="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/ColorPrimary"
+             android:id="@+id/login_layout_root">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical"
+            android:weightSum="7">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/app_background_header"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:layout_centerInParent="true"
+                    android:alpha="0.7"/>
+
+                <TextView
+                    android:id="@+id/login_txt_result_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="20dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:gravity="center|start"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        style="@style/layout_style_white_border_login_signup"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            style="@style/imageview_style_login_signup"
+                            android:background="@drawable/ic_user"/>
+
+                        <EditText
+                            android:id="@+id/userNameText"
+                            style="@style/edit_style_login_signup"
+                            android:hint="Username"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/layout_style_white_border_login_signup"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            style="@style/imageview_style_login_signup"
+                            android:background="@drawable/ic_key"/>
+
+                        <EditText
+                            android:id="@+id/passwordText"
+                            style="@style/edit_style_login_signup"
+                            android:hint="Password"
+                            android:imeOptions="actionGo"
+                            android:inputType="textPassword"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.2">
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/loginButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#FFFFFF"
+                        android:text="@string/login"
+                        android:textStyle="bold"
+                        android:textAllCaps="false"
+                        android:layout_weight="0.8"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.2">
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_signUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#FFFFFF"
+                        android:text="@string/sign_up"
+                        android:textStyle="bold"
+                        android:textAllCaps="false"
+                        android:layout_weight="0.8"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

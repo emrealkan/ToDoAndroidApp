@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ToDoApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="sign_up">Sign up</string>
+    <string name="login">Log in</string>
+    <string name="login_enterance_message">Please wait..</string>
+    <string name="login_empty_message">Please fill empty fields..</string>
+
+    <string name="close_text">Close</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="retry_text">Retry</string>
+    <string name="yes_text">Yes</string>
+    <string name="no_text">No</string>
+    <string name="ok_text">Ok</string>
+
+    <string name="delete_todo_warninig_text">Are you sure delete todo?</string>
+</resources>
