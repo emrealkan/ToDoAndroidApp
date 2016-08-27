@@ -25,13 +25,14 @@ import java.util.List;
 import todo.iyzico.com.todoapp.R;
 import todo.iyzico.com.todoapp.adapters.MyToDoAdapter;
 import todo.iyzico.com.todoapp.models.ToDo;
+import todo.iyzico.com.todoapp.models.User;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView txt_message;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshContainer;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         recyclerView = (RecyclerView) findViewById(R.id.mytodo_recyclerView);
         recyclerView.setHasFixedSize(true);
