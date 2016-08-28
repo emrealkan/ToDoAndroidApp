@@ -11,14 +11,14 @@ public class ProgressDialogTool {
     public static ProgressDialog createAndShow(Activity activity) {
         ProgressDialog pg = new ProgressDialog(activity);
         pg.setCancelable(false);
-        pg.setMessage("Lütfen Bekleyiniz..");
+        pg.setMessage("Please wait..");
         pg.show();
 
         return pg;
     }
 
     public static void dismiss(ProgressDialog progressDialog) {
-        if(progressDialog.isShowing()) {
+        if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }

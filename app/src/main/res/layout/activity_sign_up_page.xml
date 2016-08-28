@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ColorPrimary"
+    android:background="@color/app_blue2"
     android:id="@+id/signup_layout_root">
 
 
@@ -37,7 +37,7 @@
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:src="@drawable/app_background_header"
+                    android:src="@mipmap/app_header"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
                     android:layout_centerInParent="true"
@@ -68,7 +68,7 @@
 
                     <ImageView
                         style="@style/imageview_style_login_signup"
-                        android:background="@drawable/ic_mail"/>
+                        android:background="@mipmap/ic_mail"/>
 
                     <EditText
                         android:id="@+id/email"
@@ -84,7 +84,7 @@
 
                     <ImageView
                         style="@style/imageview_style_login_signup"
-                        android:background="@drawable/ic_user"/>
+                        android:background="@mipmap/ic_user"/>
 
                     <EditText
                         android:id="@+id/name"
@@ -99,7 +99,7 @@
 
                     <ImageView
                         style="@style/imageview_style_login_signup"
-                        android:background="@drawable/ic_key"/>
+                        android:background="@mipmap/ic_key"/>
 
                     <EditText
                         android:id="@+id/password"
@@ -116,7 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="13dp"
                     android:text="@string/sign_up"
-                    android:background="#ffffffff"
+                    android:textColor="@android:color/white"
+                    android:background="@color/app_red"
                     android:textAllCaps="false"/>
             </LinearLayout>
 

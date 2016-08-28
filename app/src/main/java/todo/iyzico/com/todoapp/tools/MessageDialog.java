@@ -14,10 +14,8 @@ public class MessageDialog {
         dlgAlert.setMessage(message);
         dlgAlert.setCancelable(true);
         dlgAlert.setPositiveButton("Ok",
-                new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });

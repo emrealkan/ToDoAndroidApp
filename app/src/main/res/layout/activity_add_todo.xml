@@ -5,12 +5,26 @@
     android:orientation="vertical"
     android:background="@color/app_background">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/announcement_header_color">
+        android:padding="8dp"
+        android:weightSum="7"
+        android:background="@color/app_background">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:text="Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_left"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/addTodo_pageName"
@@ -19,7 +33,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:textSize="19sp"
-            android:gravity="center"
+            android:gravity="left"
             android:hint="Title" />
 
     </LinearLayout>
@@ -37,7 +51,7 @@
         </View>
 
         <LinearLayout
-            android:id="@+id/addTodo_layout_startDate"
+            android:id="@+id/addTodo_layout_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -52,7 +66,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_camera"/>
+                    android:src="@mipmap/ic_title"
+                    android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
 
@@ -64,129 +79,17 @@
                 android:gravity="left|center"
                 android:textSize="18sp"/>
 
-            <TextView
+            <EditText
+                android:id="@+id/addTodo_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.8"
-                android:text="Start Date"
-                android:textColor="@color/text_color_white"
-                android:gravity="left|center"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/addTodo_startDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.6"
-                android:text="..."
-                android:textColor="@color/ColorPrimary"
-                android:gravity="right|center_vertical"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:textColor="@color/text_color_white"
-                android:gravity="left|center"
-                android:textSize="18sp"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/addTodo_start_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_camera"
-                    android:scaleType="centerInside"
-                    android:clickable="true"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            style="@style/line_style_todo_info"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
-        </View>
-
-        <LinearLayout
-            android:id="@+id/addTodo_layout_endDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:weightSum="7">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.9"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_camera"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:textColor="@color/text_color_white"
-                android:gravity="left|center"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2.1"
-                android:text="End Date"
+                android:layout_weight="7.1"
+                android:hint="Title"
                 android:textColor="@color/text_color_white"
                 android:gravity="left|center"
                 android:textSize="18sp"
                 android:layout_marginLeft="3dp"/>
 
-            <TextView
-                android:id="@+id/addTodo_endDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.3"
-                android:text="..."
-                android:textColor="@color/ColorPrimary"
-                android:gravity="right|center_vertical"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:textColor="@color/text_color_white"
-                android:gravity="left|center"
-                android:textSize="18sp"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/addTodo_end_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_camera"
-                    android:scaleType="centerInside"
-                    android:clickable="true"/>
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <View
@@ -194,7 +97,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
         </View>
-
         <LinearLayout
             android:id="@+id/addTodo_layout_subTitle"
             android:layout_width="match_parent"
@@ -211,7 +113,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_camera"
+                    android:src="@mipmap/ic_xml"
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
@@ -224,7 +126,7 @@
                 android:gravity="left|center"
                 android:textSize="18sp"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/addTodo_subTitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -259,7 +161,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_camera"
+                    android:src="@mipmap/ic_content"
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
@@ -272,7 +174,7 @@
                 android:gravity="left|center"
                 android:textSize="18sp"/>
 
-            <TextView
+            <EditText
                 android:id="@+id/addTodo_content"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -290,6 +192,170 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
         </View>
+        <LinearLayout
+            android:id="@+id/addTodo_layout_startDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:paddingTop="@dimen/activity_horizontal_margin"
+                    android:layout_gravity="left"
+                    android:src="@mipmap/ic_calendar"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:textColor="@color/text_color_white"
+                android:gravity="left|center"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.8"
+                android:text="Start Date"
+                android:textColor="@color/text_color_white"
+                android:gravity="left|center"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/addTodo_startDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.6"
+                android:text=""
+                android:textColor="@color/white"
+                android:gravity="right|center_vertical"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:textColor="@color/text_color_white"
+                android:gravity="left|center"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/addTodo_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_down"
+                    android:scaleType="centerInside"
+                    android:clickable="true"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            style="@style/line_style_todo_info"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+        </View>
+
+        <LinearLayout
+            android:id="@+id/addTodo_layout_endDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:scaleType="fitCenter"
+                    android:paddingTop="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/ic_calendar"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:textColor="@color/text_color_white"
+                android:gravity="left|center"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.1"
+                android:text="End Date"
+                android:textColor="@color/text_color_white"
+                android:gravity="left|center"
+                android:textSize="18sp"
+                android:layout_marginLeft="3dp"/>
+
+            <TextView
+                android:id="@+id/addTodo_endDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.3"
+                android:text=""
+                android:textColor="@color/white"
+                android:gravity="right|center_vertical"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:textColor="@color/text_color_white"
+                android:gravity="left|center"
+                android:textSize="18sp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/addTodo_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_down"
+                    android:scaleType="centerInside"
+                    android:clickable="true"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            style="@style/line_style_todo_info"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+        </View>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -298,11 +364,14 @@
             android:weightSum="7">
 
         <Button
+            android:id="@+id/saveTodo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:text="Kaydet"
+            android:background="@color/app_red"
+            android:textColor="@android:color/white"
+            android:text="Save"
             android:textStyle="bold"
+            android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_weight="0.8" />
              

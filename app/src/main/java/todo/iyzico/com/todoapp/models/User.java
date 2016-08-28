@@ -1,15 +1,10 @@
 package todo.iyzico.com.todoapp.models;
 
-import java.io.Serializable;
-
 /**
  * Created by emrealkan on 27/08/16.
  */
-public class User implements Serializable {
+public class User {
 
-    private enum Role {
-        USER, ADMIN
-    }
     private static User user;
 
     public static User getInstance() {
@@ -19,8 +14,8 @@ public class User implements Serializable {
         return user;
     }
 
-    public static void setUser(User user) {
-        user = user;
+    public static void setUser(User newUser) {
+        user = newUser;
     }
 
     private long id;

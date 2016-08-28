@@ -30,7 +30,7 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MainPageActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

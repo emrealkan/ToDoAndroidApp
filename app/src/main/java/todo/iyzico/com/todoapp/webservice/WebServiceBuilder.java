@@ -7,21 +7,22 @@ package todo.iyzico.com.todoapp.webservice;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
+import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
-import retrofit.Callback;
 import todo.iyzico.com.todoapp.models.BaseResponse;
+import todo.iyzico.com.todoapp.models.ToDo;
 import todo.iyzico.com.todoapp.models.User;
 
-public class WebServiceBuilder
-{
-    private final static String URL_ADDRESS = "http://192.168.0.17:8080/api/public";// "http://garantitest.eu-gb.mybluemix.net/api";
+public class WebServiceBuilder {
+    private final static String URL_ADDRESS = "http://192.168.1.36:8080/api/public";
 
-    public interface WebService
-    {
+    public interface WebService {
         @FormUrlEncoded
         @POST("/login")
         public void login(@Field("username") String username,
@@ -35,14 +36,31 @@ public class WebServiceBuilder
                            @Field("email") String email,
                            Callback<BaseResponse<User>> callback);
 
+        @FormUrlEncoded
+        @POST("/createTodo")
+        public void createTodo(@Field("userId") Long userId,
+                               @Field("title") String title,
+                               @Field("subTitle") String subTitle,
+                               @Field("content") String content,
+                               @Field("endDate") String endDate,
+                               @Field("startDate") String startDate,
+                               Callback<BaseResponse> callback);
+
+        @FormUrlEncoded
+        @POST("/getTodos")
+        public void getTodos(@Field("userId") Long userId,
+                             Callback<BaseResponse<List<ToDo>>> callback);
+
+        @FormUrlEncoded
+        @POST("/deleteTodo")
+        public void deleteTodo(@Field("todoId") Long todoId,
+                             Callback<BaseResponse> callback);
     }
 
     public static WebService webService;
 
-    public static WebService getInstance()
-    {
-        if(webService == null)
-        {
+    public static WebService getInstance() {
+        if (webService == null) {
             Gson gson = new GsonBuilder()
                     .create();
 

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toDoLayout"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:background="@android:color/transparent">
+    android:background="@color/app_blue2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +38,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_menu_camera"
+                        android:src="@mipmap/ic_title"
                         android:gravity="center"
                         android:scaleType="centerInside"
                         android:layout_marginBottom="4dp"/>
@@ -53,7 +54,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_menu_camera"
+                        android:src="@mipmap/ic_xml"
                         android:scaleType="centerInside"
                         android:layout_marginBottom="4dp"/>
 
@@ -68,7 +69,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_menu_camera"
+                        android:src="@mipmap/ic_calendar"
                         android:scaleType="centerInside"
                         android:layout_marginBottom="4dp"/>
 
@@ -83,7 +84,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_menu_camera"
+                        android:src="@mipmap/ic_content"
                         android:scaleType="centerInside"
                         android:layout_marginBottom="4dp"/>
 
@@ -142,15 +143,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:weightSum="1"
                     android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/mytodo_listItem_start_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.6"
                         android:gravity="left"
-                        android:padding="8dp"
+                        android:paddingLeft="8dp"
                         android:textSize="16sp"
                         android:textColor="@color/text_color_white"
                         android:layout_marginBottom="4dp">
@@ -160,9 +162,9 @@
                         android:id="@+id/mytodo_listItem_end_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:padding="8dp"
+                        android:layout_weight="0.4"
+                        android:gravity="center"
+                        android:paddingRight="8dp"
                         android:textSize="16sp"
                         android:textColor="@color/text_color_white"
                         android:layout_marginBottom="4dp">

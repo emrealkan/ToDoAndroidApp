@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +24,6 @@ import todo.iyzico.com.todoapp.tools.ActivityAnimator;
 import todo.iyzico.com.todoapp.tools.MessageDialog;
 import todo.iyzico.com.todoapp.tools.ProgressDialogTool;
 import todo.iyzico.com.todoapp.webservice.WebServiceBuilder;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 /**
@@ -40,18 +37,9 @@ public class LoginPageActivity extends Activity {
     private Dialog dialog_forgotPassword, dialog_anonLogin;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Gotham-Rounded-Book_21018.ttf")
-                .setFontAttrId(R.attr.fontPath).build());
 
         ActivityAnimator activityAnimator = new ActivityAnimator();
         activityAnimator.PullRightPushLeft(this);
@@ -64,7 +52,7 @@ public class LoginPageActivity extends Activity {
 
         loginButton.setOnClickListener(loginButtonListener);
 
-        password.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
@@ -101,8 +89,7 @@ public class LoginPageActivity extends Activity {
 
             if (str_username.equals("") || str_password.equals("")) {
                 MessageDialog.showDialogWithoutActions(LoginPageActivity.this, "Please fill all fields.");
-            }
-            else {
+            } else {
                 sendLoginRequest(str_username, str_password);
             }
         }
@@ -120,7 +107,7 @@ public class LoginPageActivity extends Activity {
                         if (baseResponse != null) {
                             if (baseResponse.isSuccess()) {
                                 User.setUser((User) baseResponse.getData());
-                                startActivity(new Intent(LoginPageActivity.this, MainActivity.class));
+                                startActivity(new Intent(LoginPageActivity.this, MainPageActivity.class));
                                 finish();
                             } else {
                                 MessageDialog.showDialogWithoutActions(LoginPageActivity.this, baseResponse.getMessage());

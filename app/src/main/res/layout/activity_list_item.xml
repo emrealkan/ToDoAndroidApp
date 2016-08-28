@@ -34,6 +34,6 @@
         android:gravity="center"
         android:textColor="@color/text_color_white"
         android:textSize="16sp"
-        android:text="İlanınız bulunmamaktadır. Yeni ilan eklemek için herhangi bir halısahaya tıklayıp eksik adam ilanı verebilirsiniz."/>
+        android:text="You dont have any todo. Create new todo by pressing bottom button."/>
 
 </FrameLayout>

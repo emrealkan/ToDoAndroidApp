@@ -5,19 +5,20 @@ package todo.iyzico.com.todoapp.models;
  */
 public class ToDo {
 
-    private Long todoID;
+    private Long id;
     private String title;
     private String subTitle;
     private String content;
     private String startDate;
     private String endDate;
+    private User user;
 
     public Long getTodoID() {
-        return todoID;
+        return id;
     }
 
-    public void setTodoID(Long todoID) {
-        this.todoID = todoID;
+    public void setTodoID(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -58,5 +59,13 @@ public class ToDo {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

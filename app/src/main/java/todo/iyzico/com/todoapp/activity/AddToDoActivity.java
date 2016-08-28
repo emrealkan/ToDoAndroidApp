@@ -3,69 +3,55 @@ package todo.iyzico.com.todoapp.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import todo.iyzico.com.todoapp.R;
-import todo.iyzico.com.todoapp.models.UserToDos;
+import todo.iyzico.com.todoapp.models.BaseResponse;
+import todo.iyzico.com.todoapp.models.ToDo;
+import todo.iyzico.com.todoapp.models.User;
 import todo.iyzico.com.todoapp.tools.ActivityAnimator;
+import todo.iyzico.com.todoapp.tools.MessageDialog;
+import todo.iyzico.com.todoapp.tools.ProgressDialogTool;
+import todo.iyzico.com.todoapp.webservice.WebServiceBuilder;
 
 /**
  * Created by emrealkan on 26/08/16.
  */
-public class AddToDoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-
-    public final static String TAG_ComplexId = "complexId";
-    public final static String TAG_ComplexName = "complexName";
-
-    private final int DATE_SIGN = 0;
-    private final int TIME_SIGN = 1;
-    private final int OTHER_SIGN = 2;
-    private final String DEFAULT_VALUE = "...";
-    private final String pastTime_Message = "Geçmiş gün veya saat seçemezsiniz..";
-    private final String maxTime_Message = "14 günden daha ilerisini seçemezsiniz..";
+public class AddToDoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected ActivityAnimator activityAnimator;
 
-    private ImageView start_date, end_date;
+    private ImageView start_date, end_date, backButton;
     private TextView txt_start_date, txt_end_date;
-    private LinearLayout layout_start_date, layout_end_date;
+    private EditText addTodo_title, addTodo_subTitle, addTodo_content;
+    private Button saveTodo;
 
-    private int complexId;
-    private String chosenDate_webServiceFormat;
-    private boolean isChosenToday;
-    //
-    private static CreateToDoResponseListener createToDoResponseListener;
+    private String startDate_webServiceFormat = null;
+    private String endDate_webServiceFormat = null;
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         return false;
-    }
-
-    public interface CreateToDoResponseListener
-    {
-        public void onResponseSuccess(Activity source,  UserToDos userToDos);
-    }
-
-    final long minDate = System.currentTimeMillis() - DateUtils.DAY_IN_MILLIS + DateUtils.HOUR_IN_MILLIS;
-
-    public static void setCreateToDoResponseListener(CreateToDoResponseListener listener)
-    {
-        createToDoResponseListener = listener;
     }
 
     @Override
@@ -79,62 +65,129 @@ public class AddToDoActivity extends AppCompatActivity implements NavigationView
         TextView txt_TitleName = (TextView) findViewById(R.id.addTodo_pageName);
         txt_TitleName.setText("Create New Todo");
 
+        addTodo_title = (EditText) findViewById(R.id.addTodo_title);
+        addTodo_subTitle = (EditText) findViewById(R.id.addTodo_subTitle);
+        addTodo_content = (EditText) findViewById(R.id.addTodo_content);
         start_date = (ImageView) findViewById(R.id.addTodo_start_date);
         end_date = (ImageView) findViewById(R.id.addTodo_end_date);
-
+        backButton = (ImageView) findViewById(R.id.backButton);
         txt_start_date = (TextView) findViewById(R.id.addTodo_startDate);
         txt_end_date = (TextView) findViewById(R.id.addTodo_endDate);
 
-        layout_start_date = (LinearLayout) findViewById(R.id.addTodo_layout_startDate);
-        layout_end_date = (LinearLayout) findViewById(R.id.addTodo_layout_endDate);
-
-        View.OnClickListener dateClickListener = new View.OnClickListener() {
+        View.OnClickListener startDateClickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                showDateDialog(txt_start_date, AddToDoActivity.this);
+            public void onClick(View v) {
+                showDateDialog(txt_start_date, "startDate", AddToDoActivity.this);
             }
         };
 
-
-        start_date.setOnClickListener(dateClickListener);
-        end_date.setOnClickListener(dateClickListener);
-
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.addtodos_toolbar);
-        toolbar.setTitle(getResources().getString(R.string.activity_addTodo_name));
-        toolbar.setNavigationIcon(R.drawable.ic_delete);
-        //        toolbar.inflateMenu(R.menu.addtodo_page);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener()
-        {
+        View.OnClickListener endDateClickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                onBackPressed();
+            public void onClick(View v) {
+                showDateDialog(txt_end_date, "endDate", AddToDoActivity.this);
             }
-        });*/
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener()
-//        {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem)
-//            {
-//                Log.e("Menu", "New Menu Item is clicked");
-//                int id = menuItem.getItemId();
-//                if (id == R.id.action_save_todos)
-//                {
-//                    Log.e("Menu", "Save Clicked");
-//                    checkAllFieldsAreFilled();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        };
+
+        backButton.setOnClickListener(backButtonClickListener);
+        start_date.setOnClickListener(startDateClickListener);
+        end_date.setOnClickListener(endDateClickListener);
+
+        saveTodo = (Button) findViewById(R.id.saveTodo);
+        saveTodo.setOnClickListener(saveTodoButtonListener);
+
+    }
+
+    private View.OnClickListener backButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            AddToDoActivity.this.onBackPressed();
+        }
+    };
+
+    private View.OnClickListener saveTodoButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            String str_title = addTodo_title.getText().toString().trim();
+            String str_subTitle = addTodo_subTitle.getText().toString().trim();
+            String str_content = addTodo_content.getText().toString().trim();
+            String str_startDate = txt_start_date.getText().toString().trim();
+            String str_endDate = txt_end_date.getText().toString().trim();
+
+
+            if (str_title.equals("") || str_subTitle.equals("") || str_content.equals("") || str_startDate.equals("") || str_endDate.equals("")) {
+                MessageDialog.showDialogWithoutActions(AddToDoActivity.this, "Please fill empty fields.");
+            } else {
+                sendAddToDoRequest(str_title, str_subTitle, str_content, startDate_webServiceFormat, endDate_webServiceFormat);
+            }
+        }
+    };
+
+    private void sendAddToDoRequest(final String title, final String subTitle, final String content, final String startDate, final String endDate) {
+
+        final ProgressDialog progressDialog = ProgressDialogTool.createAndShow(AddToDoActivity.this);
+        WebServiceBuilder.WebService webService = WebServiceBuilder.getInstance();
+        final User user = User.getInstance();
+        webService.createTodo(user.getId(), title, subTitle, content, endDate, startDate,
+                new Callback<BaseResponse>() {
+                    @Override
+                    public void success(BaseResponse baseResponse, Response response) {
+                        ProgressDialogTool.dismiss(progressDialog);
+                        if (baseResponse != null) {
+                            if (baseResponse.isSuccess()) {
+                                addCurrentUserTodos(title, subTitle, content, startDate, endDate);
+
+                                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(AddToDoActivity.this);
+                                dlgAlert.setMessage("You saved todo successfully.");
+                                dlgAlert.setCancelable(true);
+                                dlgAlert.setPositiveButton("Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                AddToDoActivity.this.onBackPressed();
+                                            }
+                                        });
+                                dlgAlert.create().show();
+                            } else {
+                                MessageDialog.showDialogWithoutActions(AddToDoActivity.this, baseResponse.getMessage());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        ProgressDialogTool.dismiss(progressDialog);
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(AddToDoActivity.this);
+                        dlgAlert.setMessage("Connection Error");
+                        dlgAlert.setCancelable(true);
+                        dlgAlert.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                        dlgAlert.setNegativeButton("Try Again",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        sendAddToDoRequest(title, subTitle, content, startDate, endDate);
+                                    }
+                                });
+                        dlgAlert.create().show();
+                    }
+                }
+        );
+    }
+
+    private void addCurrentUserTodos(String title, String subTitle, String content, String startDate, String endDate) {
+        ToDo todo = new ToDo();
+        todo.setTitle(title);
+        todo.setContent(content);
+        todo.setSubTitle(subTitle);
+        todo.setStartDate(startDate);
+        todo.setEndDate(endDate);
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         activityAnimator.pullBottom(this);
     }
@@ -148,94 +201,42 @@ public class AddToDoActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        /*if (id == R.id.action_save_todos)
-        {
-            Log.e("Menu", "Save Clicked");
-            String value = checkAllFieldsAreFilled();
-            if(value != null)
-            {
-                showAlertDialog(OTHER_SIGN, value);
-            }
-            else
-            {
-                //Save todo
-               // new CreateTodoTask().execute();
-            }
-
-            return true;
-        }*/
         return super.onOptionsItemSelected(item);
     }
 
-    private String checkAllFieldsAreFilled()
-    {
-        if(txt_start_date.getText().equals(DEFAULT_VALUE))
-        {
-            return "Lütfen tarih seçiniz..";
-        }
-        return null;
-    }
-
-    public void showDateDialog(final TextView dateTxt, Activity activity) {
+    public void showDateDialog(final TextView dateTxt, final String type, Activity activity) {
         Time today = new Time();
         today.setToNow();
         DatePickerDialog dateDlg = new DatePickerDialog(activity,
                 new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
+
                         Time chosenDate = new Time();
                         chosenDate.set(dayOfMonth, monthOfYear, year);
 
                         long dtDob = chosenDate.toMillis(true);
-
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, monthOfYear, dayOfMonth);
 
-                        Calendar maxDate = Calendar.getInstance();
-                        maxDate.add(Calendar.DATE, 14);
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
-                        if(calendar.getTimeInMillis() < minDate)
-                        {
-                            // Warn user
-                            showAlertDialog(DATE_SIGN, pastTime_Message);
+                        if (type.equalsIgnoreCase("startDate")) {
+                            String formatted_startDate = formatter.format(dtDob);
+                            startDate_webServiceFormat = formatted_startDate;
+                        } else if (type.equalsIgnoreCase("endDate")) {
+                            String formatted_endDate = formatter.format(dtDob);
+                            endDate_webServiceFormat = formatted_endDate;
                         }
-                        else if(calendar.getTimeInMillis() > maxDate.getTimeInMillis())
-                        {
-                            showAlertDialog(DATE_SIGN, maxTime_Message);
-                        }
-                        else
-                        {
-                            isChosenToday = DateUtils.isToday(dtDob);
-                            chosenDate_webServiceFormat = DateFormat.format("yyyy-MM-dd", dtDob).toString();
-                            String DateStr = DateFormat.format("EEEE, d MMMM", dtDob).toString();
-                            dateTxt.setText(DateStr);
-                            txt_start_date.setText(DEFAULT_VALUE);
-                        }
+                        String DateStr = DateFormat.format("EEEE, d MMMM", dtDob).toString();
+                        dateTxt.setText(DateStr);
                     }
                 }, today.year, today.month, today.monthDay);
         DatePicker datePicker = dateDlg.getDatePicker();
         datePicker.setCalendarViewShown(false);
         datePicker.setMinDate(System.currentTimeMillis() - 1000);
         dateDlg.show();
-    }
-
-    private void showAlertDialog(final int dateOrTime, String message)
-    {
-        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-        dlgAlert.setMessage(message);
-        dlgAlert.setCancelable(false);
-        dlgAlert.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if(dateOrTime == DATE_SIGN) {
-                    showDateDialog(txt_start_date, AddToDoActivity.this);
-                }
-            }
-        });
-        dlgAlert.create().show();
     }
 
 }

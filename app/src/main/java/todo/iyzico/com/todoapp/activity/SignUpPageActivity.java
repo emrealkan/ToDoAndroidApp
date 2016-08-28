@@ -30,7 +30,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Created by emrealkan on 25/08/16.
  */
-public class SignUpPageActivity extends Activity{
+public class SignUpPageActivity extends Activity {
 
     private Button signUp;
     private EditText email, password, username;
@@ -62,11 +62,9 @@ public class SignUpPageActivity extends Activity{
 
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-            {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_GO)
-                {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
                     signUpButtonListener.onClick(v);
                     handled = true;
                 }
@@ -75,7 +73,7 @@ public class SignUpPageActivity extends Activity{
         });
     }
 
-    View.OnClickListener signUpButtonListener = new View.OnClickListener(){
+    View.OnClickListener signUpButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -83,10 +81,9 @@ public class SignUpPageActivity extends Activity{
             String str_password = password.getText().toString();
             String str_username = username.getText().toString().trim();
 
-            if(str_email.equals("") || str_password.equals("") || str_username.equals("")) {
+            if (str_email.equals("") || str_password.equals("") || str_username.equals("")) {
                 MessageDialog.showDialogWithoutActions(SignUpPageActivity.this, "Please fill empty fields");
-            }
-            else {
+            } else {
                 sendSignUpRequest(str_username, str_password, str_email);
             }
         }
@@ -109,7 +106,7 @@ public class SignUpPageActivity extends Activity{
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 User.setUser((User) baseResponse.getData());
-                                                startActivity(new Intent(SignUpPageActivity.this, MainActivity.class));
+                                                startActivity(new Intent(SignUpPageActivity.this, MainPageActivity.class));
                                             }
                                         });
                                 dlgAlert.create().show();

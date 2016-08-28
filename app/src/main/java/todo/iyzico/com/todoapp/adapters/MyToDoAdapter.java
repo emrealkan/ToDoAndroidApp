@@ -1,13 +1,14 @@
 package todo.iyzico.com.todoapp.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import todo.iyzico.com.todoapp.R;
@@ -20,14 +21,14 @@ public class MyToDoAdapter extends RecyclerView.Adapter<MyToDoAdapter.ViewHolder
 
     private List<ToDo> toDoList;
     private Context context;
-
-    private SimpleDateFormat listedDateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy");
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String[] toDoColors;
 
     public MyToDoAdapter(Context context, List<ToDo> toDoList)
     {
         this.toDoList = toDoList;
         this.context = context;
+
+        toDoColors = context.getResources().getStringArray(R.array.toDo_colors);
     }
 
     @Override
@@ -50,13 +51,15 @@ public class MyToDoAdapter extends RecyclerView.Adapter<MyToDoAdapter.ViewHolder
         try
         {
             (holder.txt_startDate).setText(toDo.getStartDate());
-            (holder.txt_startDate).setText(listedDateFormat.format(dateFormat.parse(toDo.getEndDate())));
+            (holder.txt_endDate).setText(toDo.getEndDate());
         }
         catch(Exception e)
         {
             e.printStackTrace();
         }
         (holder.txt_content).setText(toDo.getContent());
+        int index = Long.valueOf(toDo.getTodoID()).intValue() % 10;
+        (holder.toDoLayout).setBackgroundColor(Color.parseColor(toDoColors[index]));
     }
 
     public List<ToDo> getToDoList()
@@ -90,6 +93,7 @@ public class MyToDoAdapter extends RecyclerView.Adapter<MyToDoAdapter.ViewHolder
         protected TextView txt_startDate;
         protected TextView txt_endDate;
         protected TextView txt_content;
+        protected LinearLayout toDoLayout;
 
         public ViewHolder(View rowView)
         {
@@ -99,6 +103,7 @@ public class MyToDoAdapter extends RecyclerView.Adapter<MyToDoAdapter.ViewHolder
             txt_startDate = (TextView) rowView.findViewById(R.id.mytodo_listItem_start_date);
             txt_endDate = (TextView) rowView.findViewById(R.id.mytodo_listItem_end_date);
             txt_content = (TextView) rowView.findViewById(R.id.mytodo_listItem_content);
+            toDoLayout = (LinearLayout)rowView.findViewById(R.id.toDoLayout);
         }
     }
 }

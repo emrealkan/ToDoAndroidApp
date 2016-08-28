@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by emrealkan on 26/08/16.
  */
-public abstract  class SwipeableRecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
+public abstract class SwipeableRecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
     // Cached ViewConfiguration and system-wide constant values
     private int mSlop;
     private int mMinFlingVelocity;
