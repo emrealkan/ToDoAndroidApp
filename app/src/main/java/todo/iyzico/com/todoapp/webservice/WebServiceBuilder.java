@@ -20,7 +20,7 @@ import todo.iyzico.com.todoapp.models.ToDo;
 import todo.iyzico.com.todoapp.models.User;
 
 public class WebServiceBuilder {
-    private final static String URL_ADDRESS = "http://192.168.1.36:8080/api/public";
+    private final static String URL_ADDRESS = "https://iyzicotodo.herokuapp.com/api/public";
 
     public interface WebService {
         @FormUrlEncoded
